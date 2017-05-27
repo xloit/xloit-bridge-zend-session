@@ -83,10 +83,11 @@ class TableGateaway extends AbstractAdapter
     public function update($sessionEntity, $data)
     {
         return $this->storageManager->update(
-            $data, [
-                     $this->options->getIdColumn()   => $this->getIdValue($sessionEntity),
-                     $this->options->getNameColumn() => $this->getNameValue($sessionEntity)
-                 ]
+            $data,
+            [
+                $this->options->getIdColumn()   => $this->getIdValue($sessionEntity),
+                $this->options->getNameColumn() => $this->getNameValue($sessionEntity)
+            ]
         );
     }
 
