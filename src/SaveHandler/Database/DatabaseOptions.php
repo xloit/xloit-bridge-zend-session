@@ -80,9 +80,9 @@ class DatabaseOptions extends AbstractOptions
     /**
      * Constructor to prevent {@link DatabaseOptions} from being loaded more than once.
      *
-     * @param  array|Traversable|null $options
+     * @param array|Traversable|null $options
      *
-     * @throws Exception\InvalidArgumentException
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function __construct($options)
     {
@@ -109,8 +109,8 @@ class DatabaseOptions extends AbstractOptions
      *
      * @param string $className
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function setClassName($className)
     {
@@ -141,8 +141,8 @@ class DatabaseOptions extends AbstractOptions
      *
      * @param string $idColumn
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function setIdColumn($idColumn)
     {
@@ -173,8 +173,8 @@ class DatabaseOptions extends AbstractOptions
      *
      * @param string $nameColumn
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function setNameColumn($nameColumn)
     {
@@ -205,8 +205,8 @@ class DatabaseOptions extends AbstractOptions
      *
      * @param string $dataColumn
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function setDataColumn($dataColumn)
     {
@@ -237,8 +237,8 @@ class DatabaseOptions extends AbstractOptions
      *
      * @param string $lifetimeColumn
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function setLifetimeColumn($lifetimeColumn)
     {
@@ -269,8 +269,8 @@ class DatabaseOptions extends AbstractOptions
      *
      * @param string $modifiedColumn
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function setModifiedColumn($modifiedColumn)
     {
@@ -301,8 +301,8 @@ class DatabaseOptions extends AbstractOptions
      *
      * @param string $createdColumn
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Session\Exception\InvalidArgumentException
      */
     public function setCreatedColumn($createdColumn)
     {

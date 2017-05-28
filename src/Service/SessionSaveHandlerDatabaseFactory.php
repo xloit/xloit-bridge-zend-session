@@ -32,21 +32,21 @@ class SessionSaveHandlerDatabaseFactory extends AbstractFactory
     /**
      * Create the instance service (v3).
      *
-     * @param  ContainerInterface $container
-     * @param  string             $name
-     * @param  null|array         $options
+     * @param ContainerInterface $container
+     * @param string             $name
+     * @param null|array         $options
      *
      * @return Database
-     * @throws \Xloit\Bridge\Zend\ServiceManager\Exception\StateException
      * @throws \Interop\Container\Exception\NotFoundException
      * @throws \Interop\Container\Exception\ContainerException
      * @throws \Xloit\Std\Exception\RuntimeException
+     * @throws \Xloit\Bridge\Zend\ServiceManager\Exception\StateException
      */
     public function __invoke(ContainerInterface $container, $name, array $options = null)
     {
         /** @var AdapterInterface $adapter */
         $adapter = $this->getOption('adapter');
-        $options = $this->getOption('options');
+        $options = $options ?: $this->getOption('options');
 
         return new Database($adapter, $options);
     }

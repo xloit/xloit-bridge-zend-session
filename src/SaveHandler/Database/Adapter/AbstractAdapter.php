@@ -46,8 +46,6 @@ abstract class AbstractAdapter implements AdapterInterface
      *
      * @param mixed           $storageManager
      * @param DatabaseOptions $options
-     *
-     * @return AbstractAdapter
      */
     public function __construct($storageManager, DatabaseOptions $options)
     {
@@ -70,7 +68,7 @@ abstract class AbstractAdapter implements AdapterInterface
      *
      * @param mixed $storageManager
      *
-     * @return static
+     * @return $this
      */
     public function setStorageManager($storageManager)
     {
@@ -94,7 +92,7 @@ abstract class AbstractAdapter implements AdapterInterface
      *
      * @param DatabaseOptions $options
      *
-     * @return static
+     * @return $this
      */
     public function setOptions(DatabaseOptions $options)
     {

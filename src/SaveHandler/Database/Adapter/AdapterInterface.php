@@ -109,7 +109,7 @@ interface AdapterInterface
      *
      * @param DatabaseOptions $options
      *
-     * @return static
+     * @return $this
      */
     public function setOptions(DatabaseOptions $options);
 

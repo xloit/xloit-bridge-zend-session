@@ -92,7 +92,7 @@ class Database implements DatabaseInterface
      *
      * @param string $sessionName
      *
-     * @return static
+     * @return $this
      */
     public function setSessionName($sessionName)
     {
@@ -116,7 +116,7 @@ class Database implements DatabaseInterface
      *
      * @param string $sessionSavePath
      *
-     * @return static
+     * @return $this
      */
     public function setSessionSavePath($sessionSavePath)
     {
@@ -145,7 +145,7 @@ class Database implements DatabaseInterface
      *
      * @param string $lifetime
      *
-     * @return static
+     * @return $this
      */
     public function setLifetime($lifetime)
     {
@@ -169,7 +169,7 @@ class Database implements DatabaseInterface
      *
      * @param DatabaseOptions $options
      *
-     * @return static
+     * @return $this
      */
     public function setOptions(DatabaseOptions $options)
     {
@@ -251,7 +251,7 @@ class Database implements DatabaseInterface
      *
      * @param Adapter\AdapterInterface $adapter
      *
-     * @return static
+     * @return $this
      */
     public function setAdapter($adapter)
     {

@@ -99,7 +99,7 @@ class SessionRedirectContainer extends Container
      *
      * @param string $redirectUri
      *
-     * @return static
+     * @return $this
      */
     public function setRedirectUri($redirectUri)
     {
@@ -136,7 +136,7 @@ class SessionRedirectContainer extends Container
      *
      * @param string $redirectRoute
      *
-     * @return static
+     * @return $this
      */
     public function setRedirectRoute($redirectRoute)
     {
@@ -148,7 +148,7 @@ class SessionRedirectContainer extends Container
     /**
      *
      *
-     * @return static
+     * @return $this
      */
     public function clear()
     {

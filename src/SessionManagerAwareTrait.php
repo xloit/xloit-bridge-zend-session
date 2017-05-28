@@ -48,7 +48,7 @@ trait SessionManagerAwareTrait
      *
      * @param SessionManagerInterface $sessionManager
      *
-     * @return static
+     * @return $this
      */
     public function setSessionManager(SessionManagerInterface $sessionManager)
     {
