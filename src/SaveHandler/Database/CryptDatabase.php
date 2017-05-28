@@ -27,6 +27,13 @@ class CryptDatabase extends Database
     /**
      *
      *
+     * @var string
+     */
+    const CRYPT_MODE = 'AES-128-CBC';
+
+    /**
+     *
+     *
      * @param string $id
      * @param string $data
      *
@@ -51,6 +58,34 @@ class CryptDatabase extends Database
     }
 
     /**
+     * Encrypt the given data.
+     *
+     * @param string $data Session data to encrypt.
+     * @param string $key
+     *
+     * @return string Encrypted data.
+     */
+    protected function encrypt($data, $key)
+    {
+        $keySize = openssl_cipher_iv_length(static::CRYPT_MODE);
+        $padding = $keySize - (mb_strlen($data, '8bit') % $keySize);
+        /** @noinspection CryptographicallySecureRandomnessInspection */
+        $iv   = openssl_random_pseudo_bytes($keySize);
+        $key  = $this->generateKey($key);
+        $data .= str_repeat(chr($padding), $padding);
+
+        // add in our IV and base64 encode the data
+        $data = base64_encode(
+            $iv
+            . openssl_encrypt(
+                $data, static::CRYPT_MODE, $key, OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING, $iv
+            )
+        );
+
+        return $data;
+    }
+
+    /**
      * Decrypt the given session data.
      *
      * @param string $data Data to decrypt
@@ -60,17 +95,19 @@ class CryptDatabase extends Database
      */
     protected function decrypt($data, $key)
     {
-        $data = base64_decode($data, true);
+        $base64 = base64_decode($data, true);
 
-        $ivSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
-        $key    = $this->generateKey($key);
+        $keySize = openssl_cipher_iv_length(static::CRYPT_MODE);
+        $key     = $this->generateKey($key);
 
-        $iv   = substr($data, 0, $ivSize);
-        $data = substr($data, $ivSize);
+        $iv      = substr($base64, 0, $keySize);
+        $results = substr($base64, $keySize);
 
-        $data = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $data, MCRYPT_MODE_CBC, $iv);
+        $results = openssl_decrypt(
+            $results, static::CRYPT_MODE, $key, OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING, $iv
+        );
 
-        return $data;
+        return $results;
     }
 
     /**
@@ -82,31 +119,11 @@ class CryptDatabase extends Database
      */
     protected function generateKey($key)
     {
-        $keySize = mcrypt_get_key_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
-        $key     = hash('SHA256', $this->options->getClassName() . ':' . $this->sessionName . ':' . $key, true);
-
-        return substr($key, 0, $keySize);
-    }
-
-    /**
-     * Encrypt the given data.
-     *
-     * @param string $data Session data to encrypt
-     * @param string $key
-     *
-     * @return string Encrypted data
-     */
-    protected function encrypt($data, $key)
-    {
-        $ivSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
-        $iv     = mcrypt_create_iv($ivSize, MCRYPT_RAND);
-        $key    = $this->generateKey($key);
-
-        // add in our IV and base64 encode the data
-        $data = base64_encode(
-            $iv . mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $data, MCRYPT_MODE_CBC, $iv)
+        $keySize = openssl_cipher_iv_length(static::CRYPT_MODE);
+        $key     = hash(
+            'SHA256', $this->options->getClassName() . ':' . $this->sessionName . ':' . $key, true
         );
 
-        return $data;
+        return substr($key, 0, $keySize);
     }
 }
